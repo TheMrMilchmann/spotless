@@ -102,7 +102,9 @@ public class SpotlessExtensionImpl extends SpotlessExtension {
 
 		// create the diagnose task
 		TaskProvider<SpotlessDiagnoseTask> diagnoseTask = tasks.register(taskName + DIAGNOSE, SpotlessDiagnoseTask.class, task -> {
-			task.source = spotlessTask.get();
+			SpotlessTaskImpl source = spotlessTask.get();
+			task.init(source);
+
 			task.setGroup(TASK_GROUP);
 			task.mustRunAfter(BasePlugin.CLEAN_TASK_NAME);
 		});
